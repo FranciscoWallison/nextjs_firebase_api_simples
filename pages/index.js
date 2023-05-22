@@ -8,7 +8,13 @@ export default function Home() {
   const [users, setUsers] = useState([])
   const [formulario, setFormulario] = useState("");
   const [idUser, setIdUser] = useState("");
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(
+    {
+      "nome": "",
+      "email": "",
+      "idade": ""
+    }
+  )
   
   // Modal
   const [dropdown, setDropdown] = useState(false);
@@ -23,14 +29,22 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setUser({})
+    setUser(    {
+      "nome": "",
+      "email": "",
+      "idade": ""
+    })
     getAll();
     
   }, [])
 
   
   const adicionar = () => {
-    setUser({})
+    setUser(    {
+      "nome": "",
+      "email": "",
+      "idade": ""
+    })
     setFormulario("create");
     setTextoModal("Novo Usuário");
     setDropdown(true);
@@ -115,7 +129,11 @@ export default function Home() {
         setUser(data)
       })
     }else{
-      setUser({})
+      setUser(    {
+        "nome": "",
+        "email": "",
+        "idade": ""
+      })
     }
 
   }
@@ -135,7 +153,11 @@ export default function Home() {
         setIdUser(0);
         getAll();
         openClose();
-        setUser({})
+        setUser(    {
+          "nome": "",
+          "email": "",
+          "idade": ""
+        })
       });
   }
 
@@ -156,7 +178,11 @@ export default function Home() {
         setIdUser(0);
         getAll();
         openClose();
-        setUser({})
+        setUser(    {
+          "nome": "",
+          "email": "",
+          "idade": ""
+        })
       });
   }
   
