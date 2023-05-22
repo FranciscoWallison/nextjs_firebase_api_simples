@@ -16,17 +16,17 @@ const Modal = props => {
                        
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome" value={user.nome} onChange={(e) => setUser({ ...user, nome: e.target.value } )} />
+                            <input type="text" class="form-control" id="nome" aria-describedby="nome" name="nome" value={user?.nome} onChange={(e) => setUser({ ...user, "nome": e.target.value } )} />
                             <div id="nome" class="form-text">Nome do usuário</div>
                         </div>
                         <div class="mb-3"> 
                             <label for="Email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="Email" name="email" aria-describedby="Email" value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value } )}/>
+                            <input type="email" class="form-control" id="Email" name="email" aria-describedby="Email" value={user?.email} onChange={(e) => setUser({ ...user, "email": e.target.value } )}/>
                             <div id="Email" class="form-text">Email do usuário</div>
                         </div>
                         <div class="mb-3">
                             <label for="idade" class="form-label">Idade</label>
-                            <input type="text" class="form-control" id="idade" name="idade" aria-describedby="idade" value={user.idade} onChange={(e) => setUser({ ...user, idade: e.target.value } )}/>
+                            <input type="text" class="form-control" id="idade" name="idade" aria-describedby="idade" value={user?.idade} onChange={(e) => setUser({ ...user, "idade": e.target.value } )}/>
                             <div id="idade" class="form-text">Idade do usuário</div>
                         </div>
 
