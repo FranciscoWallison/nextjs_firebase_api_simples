@@ -26,6 +26,9 @@ service cloud.firestore {
 
 
 ## iniciando variavei de ambiente
+
+Crie um arquivo na raiz do projeto chamado `.env.local`
+
 ````
 NEXT_PUBLIC_FIREBASE_API_KEY=<sua_api_key>
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=<seu_auth_domain>
@@ -53,41 +56,4 @@ const  firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const database = getFirestore(app);
-````
-
-## Chamando o projeto para usar o banco não relacional 
-````
-import { useState } from 'react';
-import firebase from '../lib/firebase';
-
-export default function Home() {
-  const [value, setValue] = useState('');
-
-  // Lê o valor da chave 'message' no banco de dados
-  const getValue = async () => {
-    const snapshot = await firebase.database().ref('message').once('value');
-    setValue(snapshot.val());
-  };
-
-  // Atualiza o valor da chave 'message' no banco de dados
-  const updateValue = async (e) => {
-    e.preventDefault();
-    await firebase.database().ref('message').set(value);
-  };
-
-  return (
-    <div>
-      <h1>Valor atual: {value}</h1>
-      <button onClick={getValue}>Obter valor</button>
-      <form onSubmit={updateValue}>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <button type="submit">Atualizar valor</button>
-      </form>
-    </div>
-  );
-}
 ````
