@@ -7,14 +7,15 @@ import Modal from './Component/Modal/Modal';
 export default function Home() {
   const [users, setUsers] = useState([])
   const [formulario, setFormulario] = useState("");
-  const [idUser, setIdUser] = useState(0);
+  const [idUser, setIdUser] = useState("");
+  const [user, setUser] = useState({})
   
   // Modal
   const [dropdown, setDropdown] = useState(false);
   const [textoModal, setTextoModal] = useState(false);
   
   const getAll = () => {
-    fetch('/api/users')
+    fetch('/api/users_firebase')
     .then((res) => res.json())
     .then((data) => {
       setUsers(data)
@@ -22,13 +23,14 @@ export default function Home() {
   }
 
   useEffect(() => {
-
+    setUser({})
     getAll();
     
   }, [])
 
   
   const adicionar = () => {
+    setUser({})
     setFormulario("create");
     setTextoModal("Novo Usuário");
     setDropdown(true);
@@ -36,13 +38,22 @@ export default function Home() {
 
 
   const editar = (id) => {
-
     setIdUser(id)
     setFormulario("update");
     setTextoModal("Editar Usuário");
-
     setDropdown(true);
+
+    getUsuarios(id);
   }
+
+  const deletar = (id) => {
+    setIdUser(id)
+    setFormulario("delete");
+    setTextoModal("Deltar Usuário");
+    setDropdown(true);
+
+    getUsuarios(id);
+  } 
 
   const openClose = () => {
     setDropdown(!dropdown);
@@ -67,7 +78,7 @@ export default function Home() {
         create(users);
         break;
       case "update":
-        update(idUser, users);
+        update(idUser);
         break;
       case "delete":
         deletepedido(idUser);
@@ -84,7 +95,7 @@ export default function Home() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(users)
     };
-    fetch('/api/users', requestOptions)
+    fetch('/api/users_firebase', requestOptions)
       .then(response => response.json())
       .then(data => console.log("update - users") )
       .finally(() => {
@@ -94,6 +105,61 @@ export default function Home() {
         openClose();
       });
   }
+
+  const getUsuarios = (id) => {
+
+    if (formulario === 'update' || formulario ===  "deletar" ) {
+      fetch(`/api/users_firebase?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data)
+      })
+    }else{
+      setUser({})
+    }
+
+  }
+
+  const update = (idUser) => {
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user)
+    };
+
+    fetch(`/api/users_firebase/?id=${idUser}`, requestOptions)
+      // .then(response => response.json())
+      .then(() => console.log("update - users") )
+      .finally(() => {
+        // reseta tudo
+        setIdUser(0);
+        getAll();
+        openClose();
+        setUser({})
+      });
+  }
+
+  const deletepedido = (idUser) => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        "id": idUser
+      })
+    };
+
+    fetch(`/api/users_firebase/`, requestOptions)
+      // .then(response => response.json())
+      .then(() => console.log("update - users") )
+      .finally(() => {
+        // reseta tudo
+        setIdUser(0);
+        getAll();
+        openClose();
+        setUser({})
+      });
+  }
+  
 
   return (
     <>
@@ -119,14 +185,14 @@ export default function Home() {
           <tbody>
             {users.map(user=>(
               <tr>
-                <th scope="row">{user.ID}</th>
-                <td>{user.NOME}</td>
-                <td>{user.EMAIL}</td>
-                <td>{user.IDADE}</td>
+                <th scope="row">{user.id}</th>
+                <td>{user.nome}</td>
+                <td>{user.email}</td>
+                <td>{user.idade}</td>
                 <td>
-                    <button variant="primary" onClick={(e) =>editar(user.ID)} size="lg">Editar</button>
+                    <button variant="primary" onClick={(e) =>editar(user.id)} size="lg">Editar</button>
                     {' '}
-                    <button variant="danger" onClick={(e) =>deletar(user.ID)} size="lg">Deletar</button>
+                    <button variant="danger" onClick={(e) =>deletar(user.id)} size="lg">Deletar</button>
                     {' '}
                 </td>
               </tr>
@@ -134,7 +200,15 @@ export default function Home() {
           </tbody>
         </table>
           
-        <Modal hidden={dropdown} openClose={openClose} textoModal={textoModal} formSubmit={formSubmit}/>
+        <Modal 
+          hidden={dropdown}
+          openClose={openClose}
+          textoModal={textoModal}
+          formSubmit={formSubmit}
+          user={user}
+          setUser={setUser}
+          formulario={formulario}
+        />
       </main>
     </>
   )
