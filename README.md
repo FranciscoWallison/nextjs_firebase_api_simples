@@ -28,9 +28,10 @@ service cloud.firestore {
 
 
 
-## iniciando variavei de ambiente
+## Iniciando variáveis de ambiente
 
-Crie um arquivo na raiz do projeto chamado `.env.local`
+Adiciona um arquivo na raiz do projeto chamado: `.env.local`,
+com as seguintes informações:
 
 ````
 NEXT_PUBLIC_FIREBASE_API_KEY=<sua_api_key>
