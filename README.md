@@ -43,7 +43,7 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=<seu_id_do_sender>
 NEXT_PUBLIC_FIREBASE_APP_ID=<seu_app_id>
 ````
 
-##  ['firebase.js'](https://github.com/FranciscoWallison/nextjs_firebase_api_simples/blob/main/service/conecte_firebase.js) Arquivo com as configurações do projeto
+##  ['service/firebase.js'](https://github.com/FranciscoWallison/nextjs_firebase_api_simples/blob/main/service/conecte_firebase.js) Arquivo com as configurações do projeto
 ````
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
