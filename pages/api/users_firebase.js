@@ -14,13 +14,12 @@ const dbInstance = collection(database, 'usuarios');
 
 export default async function handler(req, res) {
   
-  // GET - MOSTRAR TODOS
   if (req.method === "GET") {
 
     const id = req.query.id
    
     if (id === undefined) {
-      // TODOS DO FIRE BASE 
+      // GET - MOSTRAR TODOS
       const allUser = await getDocs(dbInstance)
       .then((data) => {
           return data.docs.map((item) => {
@@ -31,8 +30,7 @@ export default async function handler(req, res) {
       res.status(200).json(allUser)
     }else{
 
-      // UNIDADE  DO FIRE BASE 
-
+      // GET - MOSTRAR PELO ID
       const singleUsuario = doc(database, 'usuarios', id)
       const data = await getDoc(singleUsuario)
 
@@ -58,7 +56,7 @@ export default async function handler(req, res) {
 
     res.status(200).json("Inserido com sucesso")
   } 
-  // DELETE - Inserir
+  // DELETE - Remover
   else if (req.method === "DELETE" ){
     const collectionById = doc(database, 'usuarios', req.body.id)
 
@@ -68,6 +66,7 @@ export default async function handler(req, res) {
       })
     res.status(204).json()
   } 
+   // PUT - Atualizar
   else if (req.method === "PUT" ){
     const id = req.query.id;
     if (id === undefined) {
@@ -97,8 +96,6 @@ export default async function handler(req, res) {
           id
           )
         })
-
-
         res.status(200).json()
       }
     }
