@@ -1,4 +1,4 @@
-## iniciando firebase
+## Instalando o firebase
 ````
 npm install firebase
 ````
