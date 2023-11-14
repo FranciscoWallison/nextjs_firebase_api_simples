@@ -8,7 +8,6 @@ npm install firebase
  Caso use VS'code pode baixar o plugin dotEnv
 ````
 
-
 ###  Editar regras na tela do fire base
 
 ![image](https://github.com/FranciscoWallison/nextjs_firebase_api_simples/assets/19413241/c49326a0-6e51-4e6a-aa3c-3d204cfa9c94)
